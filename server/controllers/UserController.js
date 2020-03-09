@@ -25,12 +25,14 @@ class UserController {
         let { email, password } = req.body
         let userId = null
         let userEmail = null 
+        console.log("masuk login")
         User
             .findOne({ where: { email } })
             .then(user => {
                 if (user) {
                     userId = user.id
                     userEmail = user.email
+                    console.log("usernya ketemu : ", user)
                     return comparer(password, user.password)
                 } else {
                     next(
