@@ -1,4 +1,5 @@
 const { User, Task } = require('../models')
+const { generateToken } = require('../helpers/jwt')
 
 class UserController {
     static register = (req, res, next) => {
@@ -23,6 +24,15 @@ class UserController {
         let { email, password } = req.body
         User
             .findOne({ where: { email, password } })
+            .then(user => {
+                let id = user.id
+                let email = user.email
+                let token = generateToken({ id, email }, process.env.JWT_SECRET)
+                res.status(200).json(token)
+            })
+            .catch(err => {
+                next(err)
+            })
     }
 }
 
