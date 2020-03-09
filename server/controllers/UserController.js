@@ -25,14 +25,12 @@ class UserController {
         let { email, password } = req.body
         let userId = null
         let userEmail = null 
-        console.log("masuk login")
         User
             .findOne({ where: { email } })
             .then(user => {
                 if (user) {
                     userId = user.id
                     userEmail = user.email
-                    console.log("usernya ketemu : ", user)
                     return comparer(password, user.password)
                 } else {
                     next(
@@ -44,10 +42,8 @@ class UserController {
                 }
             })
             .then(valid => {
-                console.log(valid, 'hasil verify')
                 if (valid) {
-                    let token = generateToken({ id: userId, email: userEmail }, process.env.JWT_SECRET)
-                    console.log('valid === true', token)
+                    let token = generateToken({ id: userId, email: userEmail }, 'rahasia')
                     res.status(200).json(token)
                 } else {
                     next(
