@@ -1,5 +1,6 @@
 const { User, Task } = require('../models')
 const { generateToken } = require('../helpers/jwt')
+const { comparer } = require('../helpers/bcrypt')
 
 class UserController {
     static register = (req, res, next) => {
@@ -22,13 +23,36 @@ class UserController {
 
     static login = (req, res, next) => {
         let { email, password } = req.body
+        let userId = null
+        let userEmail = null 
         User
-            .findOne({ where: { email, password } })
+            .findOne({ where: { email } })
             .then(user => {
-                let id = user.id
-                let email = user.email
-                let token = generateToken({ id, email }, process.env.JWT_SECRET)
-                res.status(200).json(token)
+                if (user) {
+                    userId = user.id
+                    userEmail = user.email
+                    return comparer(password, user.password)
+                } else {
+                    next(
+                        {
+                            status: 400,
+                            message: "Wrong Email/Password"
+                        }
+                    )
+                }
+            })
+            .then(valid => {
+                if (valid) {
+                    let token = generateToken({ id: userId, email: userEmail }, process.env.JWT_SECRET)
+                    res.status(200).json(token)
+                } else {
+                    next(
+                        {
+                            status: 400,
+                            message: "Wrong Email/Password"
+                        }
+                    )
+                }
             })
             .catch(err => {
                 next(err)
