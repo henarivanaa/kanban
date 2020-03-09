@@ -26,5 +26,6 @@ $loginForm.on('submit', e => {
         "email" : $email,
         "password" : $password
     }
+    
     login(userData)
 })
