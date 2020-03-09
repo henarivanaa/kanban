@@ -44,8 +44,10 @@ class UserController {
                 }
             })
             .then(valid => {
+                console.log(valid, 'hasil verify')
                 if (valid) {
                     let token = generateToken({ id: userId, email: userEmail }, process.env.JWT_SECRET)
+                    console.log('valid === true', token)
                     res.status(200).json(token)
                 } else {
                     next(
