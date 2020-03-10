@@ -21,29 +21,14 @@ class UserController {
             })
     }
 
-    static login = (req, res, next) => {
+    static login = async (req, res, next) => {
         let { email, password } = req.body
-        let userId = null
-        let userEmail = null 
-        User
-            .findOne({ where: { email } })
-            .then(user => {
-                if (user) {
-                    userId = user.id
-                    userEmail = user.email
-                    return comparer(password, user.password)
-                } else {
-                    next(
-                        {
-                            status: 400,
-                            message: "Wrong Email/Password"
-                        }
-                    )
-                }
-            })
-            .then(valid => {
+        try {
+            let user = await User.findOne({ where: { email } })
+            let valid = await comparer(password, user.password)
+            if (user) {
                 if (valid) {
-                    let token = generateToken({ id: userId, email: userEmail }, 'rahasia')
+                    let token = generateToken({ id: user.id, email: user.email }, 'rahasia')
                     res.status(200).json(token)
                 } else {
                     next(
@@ -53,10 +38,15 @@ class UserController {
                         }
                     )
                 }
-            })
-            .catch(err => {
-                next(err)
-            })
+            } else {
+                next({
+                    status: 400,
+                    message: "Wrong Email/Password"
+                })
+            }
+        } catch (error) {
+            next(error)
+        }
     }
 }
 
