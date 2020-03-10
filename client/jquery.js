@@ -1,22 +1,48 @@
 let $all = $('.all')
+let $alert = $('#alert')
+let $navbar = $('#navbar')
 
-let $login = $('#login-div')
+let $home = $('#home')
+let $homeContainer = $('.home-container')
+let $loginBtn = $('#login-button')
+let $signupBtn = $('#signup-button')
 let $loginForm = $('#login-form')
 
-let $hello = $('#hello')
+let $logout = $('#logout-div')
+let $logoutBtn = $('#logout-button')
 
-if (localStorage.getItem("token")) {
-    $(document).ready(() => {
+let $task = $('#task-container')
+let $deleteBtn = $('#delete-button')
+
+$(document).ready(() => {
+    if (localStorage.getItem("token")) {
         $all.hide()
-        $hello.show()
-    })
-} else {
-    $(document).ready(() => {
+        $navbar.show()
+        $logout.show()
+        $task.show()
+    } else {
         $all.hide()
-        $login.show()
-        $hello.hide()
-    })
-}
+        $home.show()
+    }
+})
+
+$deleteBtn.on('click', e => {
+    e.preventDefault()
+})
+
+$loginBtn.on('click', () => {
+    $homeContainer.removeClass("right-panel-active")
+})
+
+$signupBtn.on('click', () => {
+    $homeContainer.addClass("right-panel-active")
+})
+
+$logoutBtn.on('click', () => {
+    localStorage.removeItem("token")
+    $all.hide()
+    $home.show()
+})
 
 $loginForm.on('submit', e => {
     e.preventDefault()
@@ -26,6 +52,5 @@ $loginForm.on('submit', e => {
         "email" : $email,
         "password" : $password
     }
-    
     login(userData)
 })
