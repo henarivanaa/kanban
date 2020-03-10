@@ -3,6 +3,15 @@
   box-sizing: border-box;
 }
 
+.navbar {
+  background: linear-gradient(to right, black, black);
+  height: 50px;
+}
+
+.nav-item {
+  color: white;
+}
+
 .home {
   background: #f6f5f7;
   display: flex;
@@ -213,8 +222,40 @@ input {
   width: 40px;
 }
 
+.logout-button {
+  padding: 10px 30px;
+}
+
+.card {
+  border-style: none;
+}
+
 .card:hover {
   background-color: whitesmoke;
+}
+
+.card-box {
+  background-color: #f7f7f7;
+}
+
+.card-header {
+  border-bottom-style: none;
+  font-weight: bold;
+}
+
+.card-label {
+  float: left;
+  height: 8px;
+  margin: 0 4px 4px 0;
+  max-width: 40px;
+  min-width: 40px;
+  padding: 0;
+  width: auto;
+  border-radius: 25%;
+}
+
+.card-label-blue {
+  background-color: blue;
 }
 
 /*# sourceMappingURL=style.css.map */

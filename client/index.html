@@ -12,7 +12,7 @@
 <body>
     <!-- THIS IS NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light all" id="navbar">
-        <a class="navbar-brand" href="/"><img src="./img/5e67286892e3a.png" alt="" height="30px" width="40px"></a>
+        <a class="navbar-brand" href="/"><img src="./img/5e67286892e3a.png" alt="" height="30px" width="30px"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -24,7 +24,7 @@
             </li>
           </ul>
           <div class="all" id="logout-div">
-            <button id="logout-button">Logout</button>
+            <button class="logout-button" id="logout-button">Logout</button>
           </div>
         </div>
     </nav>
@@ -89,67 +89,82 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+              <h5 class="modal-title" id="exampleModalCenterTitle">Add Task</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              ...
+              <form action="">
+                  <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Task name">
+                  </div>
+                  <div class="form-group">
+                      <select name="" id="">
+                          <option>Easy</option>
+                          <option>Medium</option>
+                          <option>Hard</option>
+                      </select>
+                  </div>
+                  <button style="padding: 5px 20px;" type="submit">Submit</button>
+              </form>
             </div>
-            <div class="modal-footer">
+            <!-- <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+              <button type="button" class="btn btn-primary">Submit</button>
+            </div> -->
           </div>
         </div>
     </div>
     <!-- TASK LIST  -->
-    <div class="all" id="task-container">
+    <div class="all mt-3" id="task-container">
         <div class="row no-gutters mt-2">
             <!-- Backlog Column -->
             <div class="col-3">
                 <div class="card-header ml-1 mr-1">Backlog</div>
                 <div style="max-height: 65vh;" class="card-box ml-1 mr-1 overflow-auto">
-                    <div class="card task mt-1 mb-1">
+                    <div class="card shadow task mt-2 mb-2 ml-3 mr-3">
                         <div class="card-body">
+                            <div class="d-flex">
+                                <span class="card-label card-label-blue" title="0"></span>
+                            </div>
                             <!-- <h5 class="card-title">Bambang</h5> -->
-                            <p class="card-text">wkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwk</p>
+                            <p class="card-text">Belajar VUE dan grid</p>
                             <a href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
                         </div>
                     </div>
-                    <div class="card task">
+                    <div class="card shadow task mt-2 mb-2 ml-3 mr-3">
                         <div class="card-body">
                             <!-- <h5 class="card-title">Bambang</h5> -->
-                            <p class="card-text">wkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwk</p>
+                            <p class="card-text">Belajar VUE dan grid</p>
                             <a href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
                         </div>
                     </div>
-                    <div class="card task">
+                    <div class="card shadow task mt-2 mb-2 ml-3 mr-3">
                         <div class="card-body">
                             <!-- <h5 class="card-title">Bambang</h5> -->
-                            <p class="card-text">wkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwk</p>
+                            <p class="card-text">Belajar VUE dan grid</p>
                             <a href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
                         </div>
                     </div>
-                    <div class="card task">
+                    <div class="card shadow task mt-2 mb-2 ml-3 mr-3">
                         <div class="card-body">
                             <!-- <h5 class="card-title">Bambang</h5> -->
-                            <p class="card-text">wkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwk</p>
+                            <p class="card-text">Belajar VUE dan grid</p>
                             <a href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
                         </div>
                     </div>
-                    <div class="card task">
+                    <div class="card shadow task mt-2 mb-2 ml-3 mr-3">
                         <div class="card-body">
                             <!-- <h5 class="card-title">Bambang</h5> -->
-                            <p class="card-text">wkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwk</p>
+                            <p class="card-text">Belajar VUE dan grid</p>
                             <a href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
                         </div>
                     </div>
-                    <div class="card task">
+                    <div class="card shadow task mt-2 mb-2 ml-3 mr-3">
                         <div class="card-body">
                             <!-- <h5 class="card-title">Bambang</h5> -->
-                            <p class="card-text">wkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwk</p>
+                            <p class="card-text">Belajar VUE dan grid</p>
                             <a href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
                         </div>
                     </div>
@@ -162,10 +177,10 @@
             <div class="col-3">
                 <div class="card-header ml-1 mr-1">Product</div>
                 <div style="max-height: 65vh;" class="card-box ml-1 mr-1 overflow-auto">
-                    <div class="card task">
+                    <div class="card shadow task mt-2 mb-2 ml-3 mr-3">
                         <div class="card-body">
-                            <h5 class="card-title">Bambang</h5>
-                            <p class="card-text">wkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwk</p>
+                            <!-- <h5 class="card-title">Bambang</h5> -->
+                            <p class="card-text">Belajar VUE dan grid</p>
                             <a href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
                         </div>
                     </div>
@@ -188,16 +203,16 @@
             <div class="col-3">
                 <div class="card-header ml-1 mr-1">Done</div>
                 <div style="max-height: 65vh;" class="card-box ml-1 mr-1 overflow-auto">
-                    <div class="card task">
+                    <div class="card shadow task mt-2 mb-2 ml-3 mr-3">
                         <div class="card-body">
-                            <h5 class="card-title">Bambang</h5>
-                            <p class="card-text">wkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwk</p>
+                            <!-- <h5 class="card-title">Bambang</h5> -->
+                            <p class="card-text">Belajar VUE dan grid</p>
                             <a href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
                         </div>
                     </div>
                 </div>
                 <div class="card-header ml-1 mr-1">
-                    <a href="" class="text-muted">Add a card</a>
+                    <a href="" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter"><i class="material-icons">add</i></a>
                 </div>
             </div>
         </div>
