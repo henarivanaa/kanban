@@ -84,64 +84,84 @@
             </div>
         </div>
     </div>
+    <!-- Add Task Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+    </div>
     <!-- TASK LIST  -->
     <div class="all" id="task-container">
         <div class="row no-gutters mt-2">
             <!-- Backlog Column -->
             <div class="col-3">
                 <div class="card-header ml-1 mr-1">Backlog</div>
-                <div style="max-height: 75vh;" class="card-box ml-1 mr-1 overflow-auto">
-                    <div class="card task">
+                <div style="max-height: 65vh;" class="card-box ml-1 mr-1 overflow-auto">
+                    <div class="card task mt-1 mb-1">
                         <div class="card-body">
-                            <h5 class="card-title">Bambang</h5>
+                            <!-- <h5 class="card-title">Bambang</h5> -->
                             <p class="card-text">wkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwk</p>
                             <a href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
                         </div>
                     </div>
                     <div class="card task">
                         <div class="card-body">
-                            <h5 class="card-title">Bambang</h5>
+                            <!-- <h5 class="card-title">Bambang</h5> -->
                             <p class="card-text">wkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwk</p>
                             <a href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
                         </div>
                     </div>
                     <div class="card task">
                         <div class="card-body">
-                            <h5 class="card-title">Bambang</h5>
+                            <!-- <h5 class="card-title">Bambang</h5> -->
                             <p class="card-text">wkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwk</p>
                             <a href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
                         </div>
                     </div>
                     <div class="card task">
                         <div class="card-body">
-                            <h5 class="card-title">Bambang</h5>
+                            <!-- <h5 class="card-title">Bambang</h5> -->
                             <p class="card-text">wkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwk</p>
                             <a href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
                         </div>
                     </div>
                     <div class="card task">
                         <div class="card-body">
-                            <h5 class="card-title">Bambang</h5>
+                            <!-- <h5 class="card-title">Bambang</h5> -->
                             <p class="card-text">wkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwk</p>
                             <a href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
                         </div>
                     </div>
                     <div class="card task">
                         <div class="card-body">
-                            <h5 class="card-title">Bambang</h5>
+                            <!-- <h5 class="card-title">Bambang</h5> -->
                             <p class="card-text">wkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwkwk</p>
                             <a href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
                         </div>
                     </div>
                 </div>
                 <div class="card-header ml-1 mr-1">
-                    <a href="" class="text-muted">Add a card</a>
+                    <a href="" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter"><i class="material-icons">add</i></a>
                 </div>
             </div>
             <!-- Product Column -->
             <div class="col-3">
                 <div class="card-header ml-1 mr-1">Product</div>
-                <div style="max-height: 75vh;" class="card-box ml-1 mr-1 overflow-auto">
+                <div style="max-height: 65vh;" class="card-box ml-1 mr-1 overflow-auto">
                     <div class="card task">
                         <div class="card-body">
                             <h5 class="card-title">Bambang</h5>
@@ -151,23 +171,23 @@
                     </div>
                 </div>
                 <div class="card-header ml-1 mr-1">
-                    <a href="" class="text-muted">Add a card</a>
+                    <a href="" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter"><i class="material-icons">add</i></a>
                 </div>
             </div>
             <!-- Development Column -->
             <div class="col-3">
                 <div class="card-header ml-1 mr-1">Development</div>
-                <div style="max-height: 75vh;" class="card-box ml-1 mr-1 overflow-auto">
+                <div style="max-height: 65vh;" class="card-box ml-1 mr-1 overflow-auto">
                     
                 </div>
                 <div class="card-header ml-1 mr-1">
-                    <a href="" class="text-muted">Add a card</a>
+                    <a href="" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter"><i class="material-icons">add</i></a>
                 </div>
             </div>
             <!-- Done Column -->
             <div class="col-3">
                 <div class="card-header ml-1 mr-1">Done</div>
-                <div style="max-height: 75vh;" class="card-box ml-1 mr-1 overflow-auto">
+                <div style="max-height: 65vh;" class="card-box ml-1 mr-1 overflow-auto">
                     <div class="card task">
                         <div class="card-body">
                             <h5 class="card-title">Bambang</h5>
