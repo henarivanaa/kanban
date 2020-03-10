@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     category: DataTypes.STRING
   }, { sequelize })
   Task.associate = function(models) {
-    // associations can be defined here
+    Task.belongsTo(models.User)
   };
   return Task;
 };
