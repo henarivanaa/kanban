@@ -5,7 +5,14 @@ module.exports = (sequelize, DataTypes) => {
   Task.init({
     title: DataTypes.STRING,
     category: DataTypes.STRING
-  }, { sequelize })
+  }, { 
+    hooks: {
+      beforeCreate: (instance, options) => {
+        instance.category = 'Backlog'
+      }
+    },
+    sequelize 
+  })
   Task.associate = function(models) {
     Task.belongsTo(models.User)
   };
