@@ -55,12 +55,13 @@ class UserController {
             let ticket = await client.verifyIdToken({ idToken : token, audience: process.env.CLIENT_ID })
             let payload = ticket.getPayload()
             let existedUser = await User.findOne({ where: { email: payload.email } })
+            console.log(payload)
             let user
             if (!existedUser) {
                 let newUser = {
-                    name,
-                    email,
-                    password
+                    name: payload.given_name + ' ' + payload.family_name,
+                    email: payload.email,
+                    password: 'inirandombangetsumpah'
                 }
                 user = await User.create(newUser)
             } else {
