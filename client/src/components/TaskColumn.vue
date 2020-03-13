@@ -11,7 +11,9 @@
 </template>
 
 <script>
+let heroku = `https://dry-castle-71353.herokuapp.com`
 import TaskBox from './TaskBox'
+import axios from 'axios'
 export default {
     components: {
         TaskBox
@@ -21,8 +23,15 @@ export default {
         modalTrue () {
             this.$emit('modalTrue', { modal: true, category: this.category })
         },
-        changeStatus (data) {
-            this.$emit("changeStatus", data)
+        changeStatus (data1) {
+            axios.get(`${heroku}/tasks`, {
+                headers: {
+                    "access_token": localStorage.getItem("access_token")
+                }
+            })
+                .then(data => {
+                    this.$emit("changeStatus", data.data)
+                })
         }
     }
 }

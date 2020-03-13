@@ -108,7 +108,8 @@ export default {
             socket.emit('show-data', this.tasks)
         },
         changeStatus(data) {
-            socket.emit('show-data', this.tasks)
+            // this.tasks = data
+            socket.emit('show-data', data)
         },
         editTask(data) {
             this.tasks = this.tasks.map(task => task.id === data.id ? task = data : task)

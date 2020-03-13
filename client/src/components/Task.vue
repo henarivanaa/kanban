@@ -1,12 +1,12 @@
 <template>
-    <div @click="modalEditTrue(task)" :draggable="draggable" :id="id" @dragstart="dragStart" @dragover.stop  v-if="task.category === category" class="card shadow task mt-2 mb-2 ml-3 mr-3">
-        <div class="card-body">
+    <div :draggable="draggable" :id="id" @dragstart="dragStart" @dragover.stop  v-if="task.category === category" class="card shadow task mt-2 mb-2 ml-3 mr-3">
+        <div @click="modalEditTrue(task)" class="card-body">
             <div class="d-flex">
                 <span class="card-label card-label-blue" title="0"></span>
             </div>
             <p class="card-text">{{ task.title }}</p>
-            <a @click="deleteTask(task.id)" href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
         </div>
+            <a @click="deleteTask(task.id)" class="ml-4" href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
     </div>
 </template>
 

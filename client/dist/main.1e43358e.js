@@ -11351,9 +11351,6 @@ exports.default = _default;
           staticClass: "card shadow task mt-2 mb-2 ml-3 mr-3",
           attrs: { draggable: _vm.draggable, id: _vm.id },
           on: {
-            click: function($event) {
-              return _vm.modalEditTrue(_vm.task)
-            },
             dragstart: _vm.dragStart,
             dragover: function($event) {
               $event.stopPropagation()
@@ -11361,30 +11358,42 @@ exports.default = _default;
           }
         },
         [
-          _c("div", { staticClass: "card-body" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("p", { staticClass: "card-text" }, [
-              _vm._v(_vm._s(_vm.task.title))
-            ]),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                attrs: { href: "#", id: "delete-button" },
-                on: {
-                  click: function($event) {
-                    return _vm.deleteTask(_vm.task.id)
-                  }
+          _c(
+            "div",
+            {
+              staticClass: "card-body",
+              on: {
+                click: function($event) {
+                  return _vm.modalEditTrue(_vm.task)
                 }
-              },
-              [
-                _c("i", { staticClass: "material-icons text-danger" }, [
-                  _vm._v("delete")
-                ])
-              ]
-            )
-          ])
+              }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v(_vm._s(_vm.task.title))
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "ml-4",
+              attrs: { href: "#", id: "delete-button" },
+              on: {
+                click: function($event) {
+                  return _vm.deleteTask(_vm.task.id)
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "material-icons text-danger" }, [
+                _vm._v("delete")
+              ])
+            ]
+          )
         ]
       )
     : _vm._e()
@@ -12027,6 +12036,8 @@ exports.default = void 0;
 
 var _TaskBox = _interopRequireDefault(require("./TaskBox"));
 
+var _axios = _interopRequireDefault(require("axios"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //
@@ -12041,6 +12052,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+var heroku = "https://dry-castle-71353.herokuapp.com";
 var _default = {
   components: {
     TaskBox: _TaskBox.default
@@ -12053,8 +12065,16 @@ var _default = {
         category: this.category
       });
     },
-    changeStatus: function changeStatus(data) {
-      this.$emit("changeStatus", data);
+    changeStatus: function changeStatus(data1) {
+      var _this = this;
+
+      _axios.default.get("".concat(heroku, "/tasks"), {
+        headers: {
+          "access_token": localStorage.getItem("access_token")
+        }
+      }).then(function (data) {
+        _this.$emit("changeStatus", data.data);
+      });
     }
   }
 };
@@ -12143,7 +12163,7 @@ render._withStripped = true
       
       }
     })();
-},{"./TaskBox":"src/components/TaskBox.vue","_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
+},{"./TaskBox":"src/components/TaskBox.vue","axios":"node_modules/axios/index.js","_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12274,7 +12294,8 @@ var _default = {
       socket.emit('show-data', this.tasks);
     },
     changeStatus: function changeStatus(data) {
-      socket.emit('show-data', this.tasks);
+      // this.tasks = data
+      socket.emit('show-data', data);
     },
     editTask: function editTask(data) {
       this.tasks = this.tasks.map(function (task) {
@@ -12748,7 +12769,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56336" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59169" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
