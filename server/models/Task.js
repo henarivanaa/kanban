@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   class Task extends Model {}
   Task.init({
     title: DataTypes.STRING,
-    category: DataTypes.STRING
+    category: DataTypes.STRING,
+    difficulty: DataTypes.STRING
   }, { 
     sequelize 
   })

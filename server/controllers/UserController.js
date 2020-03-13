@@ -14,7 +14,7 @@ class UserController {
                 password
             }
             let user = await User.create(newUser)
-            let token = generateToken({ id: user.id, email: user.email }, 'rahasia')
+            let token = generateToken({ id: user.id, email: user.email }, process.env.JWT_SECRET)
             res.status(201).json(token)
         } catch (error) {
             next(error)
@@ -28,7 +28,7 @@ class UserController {
             let valid = await comparer(password, user.password)
             if (user) {
                 if (valid) {
-                    let token = generateToken({ id: user.id, email: user.email }, 'rahasia')
+                    let token = generateToken({ id: user.id, email: user.email }, process.env.JWT_SECRET)
                     res.status(200).json(token)
                 } else {
                     next(
@@ -55,7 +55,6 @@ class UserController {
             let ticket = await client.verifyIdToken({ idToken : token, audience: process.env.CLIENT_ID })
             let payload = ticket.getPayload()
             let existedUser = await User.findOne({ where: { email: payload.email } })
-            console.log(payload)
             let user
             if (!existedUser) {
                 let newUser = {

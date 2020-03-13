@@ -37,7 +37,7 @@ class TaskController {
                 category
             }
             let task = await Task.update(edited, { where: { id: TaskId } })
-            res.status(200).json(task)
+            res.status(200).json(edited)
         } catch (error) {
             next(error)
         }
@@ -46,8 +46,11 @@ class TaskController {
     static deleteTask = async (req, res, next) => {
         try {
             let TaskId = req.params.id
-            let task = await Task.destroy({ where: { id: TaskId } })
-            res.status(200).json(task)
+            let deleted = await Task.findOne({ where: { id: TaskId } })
+            if (deleted) {
+                let task = await Task.destroy({ where: { id: TaskId } })
+                res.status(200).json(deleted)
+            }
         } catch (error) {
             next(error)
         }
