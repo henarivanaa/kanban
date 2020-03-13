@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(router)
 app.use(errorHandler)
 
-// app.listen(port, () => console.log(`listening on port: ${port}`))
+app.listen(port, () => console.log(`listening on port: ${port}`))
 // io.on('connection', socket => {
 //     console.log('a user connected')
 //     socket.on('show-data', data => {
