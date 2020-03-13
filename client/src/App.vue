@@ -1,32 +1,32 @@
 <template>
     <div>
         <Navbar @logout="logoutUser" :isLoggedIn="isLoggedIn"/>
-        <Login @login="loginUser" :isLoggedIn="isLoggedIn"/>
+        <Login @login="loginUser" @register="registerUser" :isLoggedIn="isLoggedIn"/>
         <div v-if="isLoggedIn" class="all mt-3" id="task-container">
             <div class="row no-gutters mt-2">
-                <TaskBox v-for="(category, index) in categories" :key="index" :id="index">
-                    <div class="card-header ml-1 mr-1">{{ category }}</div>
-                    <div v-for="task in tasks" :key="task.id" style="max-height: 65vh;" class="card-box ml-1 mr-1 overflow-auto">
-                        <Task @delete="deleteTask" :task="task" :category="category"/>
-                    </div>
-                    <div class="card-header ml-1 mr-1">
-                            <a href="" id="show-modal" @click.prevent="showModal = true"><i class="material-icons">add</i></a>
-                    </div>
-                </TaskBox>
+                <TaskColumn @changeStatus="changeStatus" v-for="(category, index) in categories" :key="index" :boxId="`${index}ty`" :category="category" :tasks="tasks" @modalTrue="changeModal">
+
+                    <Task v-for="task in tasks" :key="task.id" @modalEditTrue="showModalEdit" @delete="deleteTask" :task="task" :category="category" :id="task.id" draggable="true" />
+                    
+                </TaskColumn>
             </div>
         <div>
-        <AddTask v-if="showModal" @add="addTask" @close="showModal = false"  />
+        <AddTask v-if="showModal"  @add="addTask" @close="showModal = false" :category="addCategory" />
+        <EditTask v-if="showEdit" @edit="editTask" @close="showEdit = false" :task="editTaskData" />
     </div>
 </template>
 
 
 <script>
-let socket = io('http://localhost:3000')
+let heroku = `https://dry-castle-71353.herokuapp.com`
+let socket = io(`${heroku}`)
 import axios from 'axios'
 import Navbar from './components/Navbar'
 import Login from './components/Login'
 import Task from './components/Task'
 import AddTask from './components/AddTask'
+import EditTask from './components/EditTask'
+import TaskColumn from './components/TaskColumn'
 import TaskBox from './components/TaskBox'
 
 export default {
@@ -35,14 +35,19 @@ export default {
         Login,
         Task,
         AddTask,
-        TaskBox
+        TaskBox,
+        TaskColumn,
+        EditTask
     },
     data: function() {
         return {
             isLoggedIn: false,
             categories: ['Backlog', 'Todo', 'Done', 'Completed'],
             tasks: [],
-            showModal: false
+            showModal: false,
+            showEdit: false,
+            addCategory: null,
+            editTaskData: null
         }
     },
     created () {
@@ -52,13 +57,18 @@ export default {
         })
     },
     methods: {
-        drop: e => {
-            const card_id = e.dataTransfer.getData('card_id')
-
-            const card = document.getElementById(card_id)
-
-            card.style.display = "block"
-            e.target.appendChild(card)
+        showModalEdit (data) {
+            this.showEdit = data.modal
+            this.editTaskData = data.task
+        },
+        registerUser(data) {
+            localStorage.setItem("access_token", data.token)
+            this.isLoggedIn = data.isLoggedIn
+            this.showTask()
+        },
+        changeModal(state) {
+            this.addCategory = state.category
+            this.showModal = state.modal
         },
         checkIsLogin () {
             if (localStorage.getItem("access_token")) {
@@ -74,7 +84,7 @@ export default {
             this.showTask()
         },
         showTask() {
-            axios.get(`http://localhost:3000/tasks`, {
+            axios.get(`${heroku}/tasks`, {
                 headers: {
                     "access_token": localStorage.getItem("access_token")
                 }
@@ -96,6 +106,12 @@ export default {
         addTask(newTask) {
             this.tasks.push(newTask)
             socket.emit('show-data', this.tasks)
+        },
+        changeStatus(data) {
+            socket.emit('show-data', this.tasks)
+        },
+        editTask(data) {
+            this.tasks = this.tasks.map(task => task.id === data.id ? task = data : task)
         }
     }
 }

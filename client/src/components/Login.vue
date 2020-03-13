@@ -5,7 +5,7 @@
                 <form @submit.prevent="register" id="signup-form">
                     <h1>Create Account</h1>
                     <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                        <a href="" class="social"><i class="fab fa-google-plus-g"></i></a>
                     </div>
                     <span>or use your email for registration</span>
                     <input v-model="name_register" type="text" placeholder="Name" />
@@ -23,7 +23,7 @@
                 <form @submit.prevent="login" id="login-form">
                     <h1>Sign in</h1>
                     <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                        <a href="" @click.prevent="onSuccess" class="social"><i class="fab fa-google-plus-g"></i></a>
                     </div>
                     <span>or use your account</span>
                     <input v-model="email_login" type="email" placeholder="Email" id="email-login"/>
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+let heroku = `https://dry-castle-71353.herokuapp.com`
 import axios from 'axios'
 export default {
     props: ['isLoggedIn', 'isError'],
@@ -72,13 +73,47 @@ export default {
         // console.log(this.isLoggedIn, 'ini is log in')
     },
     methods: {
+        onSuccess () {
+            this.$gAuth.signIn()
+                .then(GoogleUser => {
+                // On success do something, refer to https://developers.google.com/api-client-library/javascript/reference/referencedocs#googleusergetid
+                let token = GoogleUser.getAuthResponse().id_token
+                this.glogin(token)
+                })
+                .catch(error  => {
+                //on fail do something
+                    console.log(err)
+                })
+        },
+        glogin(token) {
+            axios.post(`${heroku}/glogin`, {
+                token: token
+            })
+                .then(data => {
+                    this.$emit('login', { token:data.data, isLoggedIn: true })
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+                
+        },
         login() {
-            axios.post(`http://localhost:3000/login`, {
+            axios.post(`${heroku}/login`, {
                 "email": this.email_login,
                 "password": this.password_login
             })
                 .then(token => {
                     this.$emit('login', { token:token.data, isLoggedIn: true })
+                })
+        },
+        register() {
+            axios.post(`${heroku}/register`, {
+                "name": this.email_register,
+                "email": this.email_register,
+                "password": this.password_register
+            })
+                .then(token => {
+                    this.$emit('register', { token: token.data, isLoggedIn: true })
                 })
         },
         showSignup () {

@@ -12,15 +12,18 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
+    "dr": "^0.12.1",
     "sass": "^1.26.2",
     "vue": "^2.6.11",
-    "vue-hot-reload-api": "^2.3.4"
+    "vue-google-oauth2": "^1.4.0",
+    "vue-hot-reload-api": "^2.3.4",
+    "vuedraggable": "^2.23.2"
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.1.1",
     "vue-template-compiler": "^2.6.11"
   },
-  "posthtml":{ 
-    "recognizeSelfClosing" : true
-   }
+  "posthtml": {
+    "recognizeSelfClosing": true
+  }
 }

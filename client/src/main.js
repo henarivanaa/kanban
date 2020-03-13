@@ -1,6 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
 
+import GAuth from 'vue-google-oauth2'
+const gauthOption = {
+  clientId: '1007387380592-ejjgb32477u7mdndodb1pmr4tt7thfa6.apps.googleusercontent.com'
+}
+Vue.use(GAuth, gauthOption)
+
 new Vue ({
     render: createElement => createElement(App)
 }).$mount('#app')

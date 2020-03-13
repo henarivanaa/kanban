@@ -5,11 +5,11 @@
             <div class="modal-container">
 
               <div class="modal-header">
-                <h5 class="modal-title">Add Task</h5>
+                <h5 class="modal-title">Edit Task</h5>
               </div>
 
               <div class="modal-body">
-                <form @submit.prevent="addTask">
+                <form @submit.prevent="editTask">
                       <div class="form-group">
                           <input type="text" class="form-control" placeholder="Task name" v-model="task_title">
                       </div>
@@ -34,7 +34,11 @@
 let heroku = `https://dry-castle-71353.herokuapp.com`
 import axios from 'axios'
 export default {
-    props: ['category'],
+    props: ['task'],
+    created () {
+        this.task_title = this.task.title
+        this.task_difficulty = this.task.difficulty
+    },
     data () {
         return {
             task_title: null,
@@ -42,20 +46,20 @@ export default {
         }
     },
     methods: {
-        addTask () {
-            axios.post(`${heroku}/tasks`, {
+        editTask () {
+            let editedTask = {
                 "title": this.task_title,
-                "category": this.category,
-                "difficulty": this.task_difficulty,
-            }, {
+                "category": this.task.category,
+                "difficulty": this.task_difficulty
+            }
+            axios.put(`${heroku}/tasks`, editedTask , {
                 headers: {
                     "access_token": localStorage.getItem("access_token")
                 }
             })
-                .then(task => {
-                    let newTask = task.data
+                .then(() => {
                     this.$emit('close')
-                    this.$emit('add', newTask)
+                    this.$emit('edit', editedTask)
                 })
         }
     }

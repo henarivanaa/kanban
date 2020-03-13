@@ -1,10 +1,9 @@
 <template>
-    <div v-if="task.category === category" class="card shadow task mt-2 mb-2 ml-3 mr-3" id="task.id">
+    <div @click="modalEditTrue(task)" :draggable="draggable" :id="id" @dragstart="dragStart" @dragover.stop  v-if="task.category === category" class="card shadow task mt-2 mb-2 ml-3 mr-3">
         <div class="card-body">
             <div class="d-flex">
                 <span class="card-label card-label-blue" title="0"></span>
             </div>
-            <!-- <h5 class="card-title">Bambang</h5> -->
             <p class="card-text">{{ task.title }}</p>
             <a @click="deleteTask(task.id)" href="#" id="delete-button"><i class="material-icons text-danger">delete</i></a>
         </div>
@@ -12,11 +11,13 @@
 </template>
 
 <script>
+let heroku = `https://dry-castle-71353.herokuapp.com`
+import Vue from 'vue'
 import axios from 'axios'
 export default {
-    props: ['task', 'category', 'draggable'],
+    props: ['task', 'category', 'id', 'draggable'],
     methods: {
-        dragStart: e => {
+        dragStart (e) {
             const target = e.target
 
             e.dataTransfer.setData('card_id', target.id)
@@ -26,7 +27,7 @@ export default {
             }, 0)
         },
         deleteTask(id) {
-            axios.delete(`http://localhost:3000/tasks/${id}`, {
+            axios.delete(`${heroku}/tasks/${id}`, {
                 headers: {
                     "access_token": localStorage.getItem("access_token")
                 }
@@ -34,6 +35,9 @@ export default {
                 .then(() => {
                     this.$emit('delete', id)
                 })
+        },
+        modalEditTrue(task) {
+            this.$emit('modalEditTrue', { modal: true, task: task })
         }
     }
 }
