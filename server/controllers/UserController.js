@@ -68,7 +68,7 @@ class UserController {
             }
             let id = user.id
             let email = user.email
-            let googleToken = jwt.sign({ id, email }, process.env.JWT_SECRET)
+            let googleToken = generateToken({ id, email }, process.env.JWT_SECRET)
             res.status(200).json(googleToken)
         } catch (error) {
             next(error)
