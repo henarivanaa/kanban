@@ -1,4 +1,5 @@
-PORT=3000
 DB_USERNAME=henarivanaa
 DB_PASSWORD=wakwaw
+PORT=3000
 JWT_SECRET=rahasia
+CLIENT_ID=1007387380592-ejjgb32477u7mdndodb1pmr4tt7thfa6.apps.googleusercontent.com
