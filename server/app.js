@@ -27,7 +27,3 @@ io.on('connection', socket => {
         socket.broadcast.emit('realtime-data', data)
     })
 })
-
-http.listen(3000, () => {
-    console.log(`listening on port *:3000`)
-})
