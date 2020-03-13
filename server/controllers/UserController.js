@@ -1,6 +1,8 @@
 const { User, Task } = require('../models')
 const { generateToken } = require('../helpers/jwt')
 const { comparer } = require('../helpers/bcrypt')
+const { OAuth2Client } = require('google-auth-library')
+const client = new OAuth2Client(process.env.CLIENT_ID)
 
 class UserController {
     static register = async (req, res, next) => {
@@ -42,6 +44,32 @@ class UserController {
                     message: "Wrong Email/Password"
                 })
             }
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static glogin = async (req, res, next) => {
+        try {
+            let { token } = req.body
+            let ticket = await client.verifyIdToken({ idToken = token, audience: process.env.CLIENT_ID })
+            let payload = ticket.getPayload()
+            let existedUser = await User.findOne({ where: { email: payload.email } })
+            let user
+            if (!existedUser) {
+                let newUser = {
+                    name,
+                    email,
+                    password
+                }
+                user = await User.create(newUser)
+            } else {
+                user = existedUser
+            }
+            let id = user.id
+            let email = user.email
+            let token = jwt.sign({ id, email }, process.env.JWT_SECRET)
+            res.status(200).json(token)
         } catch (error) {
             next(error)
         }
