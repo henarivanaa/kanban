@@ -13,10 +13,11 @@ class TaskController {
 
     static addTask = async (req, res, next) => {
         try {
-            let { title, difficulty } = req.body
+            let { title, difficulty, category } = req.body
             let UserId = req.userData.id
             let newTask = {
                 title,
+                category,
                 difficulty,
                 UserId
             }

@@ -12,7 +12,8 @@ class UserController {
                 password
             }
             let user = await User.create(newUser)
-            res.status(201).json(user)
+            let token = generateToken({ id: user.id, email: user.email }, 'rahasia')
+            res.status(201).json(token)
         } catch (error) {
             next(error)
         }

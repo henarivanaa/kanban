@@ -6,11 +6,6 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     category: DataTypes.STRING
   }, { 
-    hooks: {
-      beforeCreate: (instance, options) => {
-        instance.category = 'Backlog'
-      }
-    },
     sequelize 
   })
   Task.associate = function(models) {
