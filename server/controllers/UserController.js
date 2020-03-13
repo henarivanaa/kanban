@@ -52,7 +52,7 @@ class UserController {
     static glogin = async (req, res, next) => {
         try {
             let { token } = req.body
-            let ticket = await client.verifyIdToken({ idToken = token, audience: process.env.CLIENT_ID })
+            let ticket = await client.verifyIdToken({ idToken : token, audience: process.env.CLIENT_ID })
             let payload = ticket.getPayload()
             let existedUser = await User.findOne({ where: { email: payload.email } })
             let user
@@ -68,8 +68,8 @@ class UserController {
             }
             let id = user.id
             let email = user.email
-            let token = jwt.sign({ id, email }, process.env.JWT_SECRET)
-            res.status(200).json(token)
+            let googleToken = jwt.sign({ id, email }, process.env.JWT_SECRET)
+            res.status(200).json(googleToken)
         } catch (error) {
             next(error)
         }
