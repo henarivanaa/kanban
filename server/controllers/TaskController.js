@@ -30,10 +30,11 @@ class TaskController {
 
     static updateTask = async (req, res, next) => {
         try {
-            let { title, category } = req.body
+            let { title, category, difficulty } = req.body
             let TaskId = req.params.id
             let edited = {
                 title,
+                difficulty,
                 category
             }
             let task = await Task.update(edited, { where: { id: TaskId } })
