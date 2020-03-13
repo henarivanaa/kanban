@@ -2,6 +2,7 @@
 
 ### by Henarivan Andhika Abhirama
 
+endpoint/url : https://dry-castle-71353.herokuapp.com
 
 ## GET /tasks
 Get all tasks that the user have
