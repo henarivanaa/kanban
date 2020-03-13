@@ -10866,7 +10866,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 var heroku = "https://dry-castle-71353.herokuapp.com";
 var _default = {
-  props: ['isLoggedIn', 'isError'],
+  props: ['isLoggedIn'],
   data: function data() {
     return {
       email_login: null,
@@ -10874,10 +10874,14 @@ var _default = {
       name_register: null,
       email_register: null,
       password_register: null,
-      onSignup: false
+      onSignup: false,
+      errorTrue: null
     };
   },
-  created: function created() {// console.log(this.isLoggedIn, 'ini is log in')
+  watch: {
+    password_login: function password_login() {
+      this.errorTrue = null;
+    }
   },
   methods: {
     onSuccess: function onSuccess() {
@@ -10890,7 +10894,7 @@ var _default = {
         _this.glogin(token);
       }).catch(function (error) {
         //on fail do something
-        console.log(err);
+        _this.errorTrue = err.response.data;
       });
     },
     glogin: function glogin(token) {
@@ -10904,7 +10908,7 @@ var _default = {
           isLoggedIn: true
         });
       }).catch(function (err) {
-        console.log(err);
+        _this2.errorTrue = err.response.data;
       });
     },
     login: function login() {
@@ -10918,6 +10922,9 @@ var _default = {
           token: token.data,
           isLoggedIn: true
         });
+      }).catch(function (err) {
+        console.log('salah');
+        _this3.errorTrue = err.response.data;
       });
     },
     register: function register() {
@@ -10932,6 +10939,8 @@ var _default = {
           token: token.data,
           isLoggedIn: true
         });
+      }).catch(function (err) {
+        _this4.errorTrue = err.response.data;
       });
     },
     showSignup: function showSignup() {
@@ -11047,7 +11056,7 @@ exports.default = _default;
                     }
                   }),
                   _vm._v(" "),
-                  _vm.isError
+                  _vm.errorTrue
                     ? _c(
                         "div",
                         {
@@ -11059,7 +11068,7 @@ exports.default = _default;
                         [
                           _vm._v(
                             "\n                    " +
-                              _vm._s(_vm.isError) +
+                              _vm._s(_vm.errorTrue) +
                               "\n                "
                           )
                         ]
@@ -11159,7 +11168,7 @@ exports.default = _default;
                     }
                   }),
                   _vm._v(" "),
-                  _vm.isError
+                  _vm.errorTrue
                     ? _c(
                         "div",
                         {
@@ -11171,7 +11180,7 @@ exports.default = _default;
                         [
                           _vm._v(
                             "\n                    " +
-                              _vm._s(_vm.isError) +
+                              _vm._s(_vm.errorTrue) +
                               "\n                "
                           )
                         ]
@@ -12769,7 +12778,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59169" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60103" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

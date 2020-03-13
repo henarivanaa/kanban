@@ -1,7 +1,7 @@
 <template>
     <div>
         <Navbar @logout="logoutUser" :isLoggedIn="isLoggedIn"/>
-        <Login @login="loginUser" @register="registerUser" :isLoggedIn="isLoggedIn"/>
+        <Login @login="loginUser" @register="registerUser" :isLoggedIn="isLoggedIn" />
         <div v-if="isLoggedIn" class="all mt-3" id="task-container">
             <div class="row no-gutters mt-2">
                 <TaskColumn @changeStatus="changeStatus" v-for="(category, index) in categories" :key="index" :boxId="`${index}ty`" :category="category" :tasks="tasks" @modalTrue="changeModal">

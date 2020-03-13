@@ -12,8 +12,8 @@
                     <input v-model="email_register" type="email" placeholder="Email" />
                     <input v-model="password_register" type="password" placeholder="Password" />
                     <!-- Alert Signup -->
-                    <div v-if="isError" style="padding: 5px 5px;" id="alert-signup" class="alert alert-danger alert-dismissible fade show mb-0 all" role="alert">
-                        {{ isError }}
+                    <div v-if="errorTrue" style="padding: 5px 5px;" id="alert-signup" class="alert alert-danger alert-dismissible fade show mb-0 all" role="alert">
+                        {{ errorTrue }}
                     </div>
                     <!-- ------------ -->
                     <button class="mt-3" type="submit">Sign Up</button>
@@ -29,8 +29,8 @@
                     <input v-model="email_login" type="email" placeholder="Email" id="email-login"/>
                     <input v-model="password_login" type="password" placeholder="Password" id="password-login"/>
                     <!-- Alert Login -->
-                    <div v-if="isError" style="padding: 5px 5px;" id="alert-login" class="alert alert-danger alert-dismissible fade show mb-0 all" role="alert">
-                        {{ isError }}
+                    <div v-if="errorTrue" style="padding: 5px 5px;" id="alert-login" class="alert alert-danger alert-dismissible fade show mb-0 all" role="alert">
+                        {{ errorTrue }}
                     </div>
                     <!-- ----------- -->
                     <button class="mt-4" type="submit">Sign In</button>
@@ -58,7 +58,7 @@
 let heroku = `https://dry-castle-71353.herokuapp.com`
 import axios from 'axios'
 export default {
-    props: ['isLoggedIn', 'isError'],
+    props: ['isLoggedIn'],
     data () {
         return {
             email_login: null,
@@ -66,11 +66,14 @@ export default {
             name_register: null,
             email_register: null,
             password_register: null,
-            onSignup: false
+            onSignup: false,
+            errorTrue: null
         }
     },
-    created () {
-        // console.log(this.isLoggedIn, 'ini is log in')
+    watch : {
+        password_login () {
+            this.errorTrue = null
+        }
     },
     methods: {
         onSuccess () {
@@ -82,7 +85,7 @@ export default {
                 })
                 .catch(error  => {
                 //on fail do something
-                    console.log(err)
+                    this.errorTrue = err.response.data
                 })
         },
         glogin(token) {
@@ -93,7 +96,7 @@ export default {
                     this.$emit('login', { token:data.data, isLoggedIn: true })
                 })
                 .catch(err => {
-                    console.log(err)
+                    this.errorTrue = err.response.data
                 })
                 
         },
@@ -105,6 +108,10 @@ export default {
                 .then(token => {
                     this.$emit('login', { token:token.data, isLoggedIn: true })
                 })
+                .catch(err => {
+                    console.log('salah')
+                    this.errorTrue = err.response.data
+                })
         },
         register() {
             axios.post(`${heroku}/register`, {
@@ -114,6 +121,9 @@ export default {
             })
                 .then(token => {
                     this.$emit('register', { token: token.data, isLoggedIn: true })
+                })
+                .catch(err => {
+                    this.errorTrue = err.response.data
                 })
         },
         showSignup () {
