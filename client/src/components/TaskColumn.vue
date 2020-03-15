@@ -1,10 +1,10 @@
 <template>
     <div class="col-3">
-        <div class="card-header ml-1 mr-1">{{ category }}</div>
-        <TaskBox @changeStatus="changeStatus" :tasks="tasks" :category="category" :id="boxId" style="max-height: 68vh; min-height: 40vh;" class="card-box ml-1 mr-1 overflow-auto">
+        <div style="borderBottom: solid 1px" class="card-header ml-1 mr-1">{{ category }}</div>
+        <TaskBox @changeStatus="changeStatus" :tasks="tasks" :category="category" :id="boxId" style="max-height: 68vh; min-height: 15vh;" class="card-box ml-1 mr-1 overflow-auto">
             <slot />
         </TaskBox>
-        <div class="card-header ml-1 mr-1">
+        <div style="borderTop: solid 0.1px" class="card-header ml-1 mr-1">
             <a href="" id="show-modal" @click.prevent="modalTrue"><i class="material-icons">add</i></a>
         </div>
     </div>

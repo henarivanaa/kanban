@@ -15,8 +15,10 @@ export default {
         drop (e) {
             const card_id = e.dataTransfer.getData('card_id')
             const card = document.getElementById(card_id)
+            const box = document.getElementById(e.target.id)
+            let currentHeight = Number(box.style.minHeight.split('').filter(x => x > 0).join(''))
 
-            card.style.display = "block"
+            card.style.display = "flex"
             e.target.appendChild(card)
 
             let task = this.tasks.filter(task => task.id === Number(card_id))[0]

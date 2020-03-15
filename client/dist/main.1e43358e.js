@@ -11310,6 +11310,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 var heroku = "https://dry-castle-71353.herokuapp.com";
 var _default = {
   props: ['task', 'category', 'id', 'draggable'],
@@ -11357,7 +11359,8 @@ exports.default = _default;
     ? _c(
         "div",
         {
-          staticClass: "card shadow task mt-2 mb-2 ml-3 mr-3",
+          staticClass: "card shadow task mt-3 mb-4 ml-3 mr-3",
+          staticStyle: { height: "107px" },
           attrs: { draggable: _vm.draggable, id: _vm.id },
           on: {
             dragstart: _vm.dragStart,
@@ -11390,7 +11393,7 @@ exports.default = _default;
             "a",
             {
               staticClass: "ml-4",
-              attrs: { href: "#", id: "delete-button" },
+              attrs: { draggable: false, href: "#" },
               on: {
                 click: function($event) {
                   return _vm.deleteTask(_vm.task.id)
@@ -11448,7 +11451,7 @@ render._withStripped = true
         
       }
     })();
-},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","axios":"node_modules/axios/index.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js"}],"src/components/AddTask.vue":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","axios":"node_modules/axios/index.js","_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js"}],"src/components/AddTask.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11952,7 +11955,11 @@ var _default = {
 
       var card_id = e.dataTransfer.getData('card_id');
       var card = document.getElementById(card_id);
-      card.style.display = "block";
+      var box = document.getElementById(e.target.id);
+      var currentHeight = Number(box.style.minHeight.split('').filter(function (x) {
+        return x > 0;
+      }).join(''));
+      card.style.display = "flex";
       e.target.appendChild(card);
       var task = this.tasks.filter(function (task) {
         return task.id === Number(card_id);
@@ -12104,15 +12111,20 @@ exports.default = _default;
     "div",
     { staticClass: "col-3" },
     [
-      _c("div", { staticClass: "card-header ml-1 mr-1" }, [
-        _vm._v(_vm._s(_vm.category))
-      ]),
+      _c(
+        "div",
+        {
+          staticClass: "card-header ml-1 mr-1",
+          staticStyle: { borderBottom: "solid 1px" }
+        },
+        [_vm._v(_vm._s(_vm.category))]
+      ),
       _vm._v(" "),
       _c(
         "TaskBox",
         {
           staticClass: "card-box ml-1 mr-1 overflow-auto",
-          staticStyle: { "max-height": "68vh", "min-height": "40vh" },
+          staticStyle: { "max-height": "68vh", "min-height": "15vh" },
           attrs: { tasks: _vm.tasks, category: _vm.category, id: _vm.boxId },
           on: { changeStatus: _vm.changeStatus }
         },
@@ -12120,21 +12132,28 @@ exports.default = _default;
         2
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "card-header ml-1 mr-1" }, [
-        _c(
-          "a",
-          {
-            attrs: { href: "", id: "show-modal" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.modalTrue($event)
+      _c(
+        "div",
+        {
+          staticClass: "card-header ml-1 mr-1",
+          staticStyle: { borderTop: "solid 0.1px" }
+        },
+        [
+          _c(
+            "a",
+            {
+              attrs: { href: "", id: "show-modal" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.modalTrue($event)
+                }
               }
-            }
-          },
-          [_c("i", { staticClass: "material-icons" }, [_vm._v("add")])]
-        )
-      ])
+            },
+            [_c("i", { staticClass: "material-icons" }, [_vm._v("add")])]
+          )
+        ]
+      )
     ],
     1
   )
@@ -12778,7 +12797,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60103" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57687" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
