@@ -19,6 +19,13 @@ import axios from 'axios'
 export default {
     props: ['task', 'category', 'id', 'draggable'],
     methods: {
+        dragEnter (e) {
+            let identifier = e.relatedTarget.parentElement.id.split('').pop()
+            if (identifier === "y") {
+                let currentHeight = e.relatedTarget.parentElement.style.minHeight.split('').filter(x => x > 0).join('')/1
+                e.relatedTarget.parentElement.style.minHeight = `${currentHeight+26}vh`
+            }
+        },
         dragStart (e) {
             const target = e.target
 

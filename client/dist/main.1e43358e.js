@@ -11316,6 +11316,16 @@ var heroku = "https://dry-castle-71353.herokuapp.com";
 var _default = {
   props: ['task', 'category', 'id', 'draggable'],
   methods: {
+    dragEnter: function dragEnter(e) {
+      var identifier = e.relatedTarget.parentElement.id.split('').pop();
+
+      if (identifier === "y") {
+        var currentHeight = e.relatedTarget.parentElement.style.minHeight.split('').filter(function (x) {
+          return x > 0;
+        }).join('') / 1;
+        e.relatedTarget.parentElement.style.minHeight = "".concat(currentHeight + 26, "vh");
+      }
+    },
     dragStart: function dragStart(e) {
       var target = e.target;
       e.dataTransfer.setData('card_id', target.id);
@@ -11950,15 +11960,22 @@ var heroku = "https://dry-castle-71353.herokuapp.com";
 var _default = {
   props: ['category', 'tasks', 'id'],
   methods: {
+    dragEnter: function dragEnter(e) {
+      if (e.target.id[e.target.id.length - 1] === "y") {
+        e.target.style.backgroundColor = "green";
+      }
+    },
+    dragExit: function dragExit(e) {
+      e.target.style.backgroundColor = "#f7f7f7";
+    },
     drop: function drop(e) {
       var _this = this;
 
       var card_id = e.dataTransfer.getData('card_id');
       var card = document.getElementById(card_id);
-      var box = document.getElementById(e.target.id);
-      var currentHeight = Number(box.style.minHeight.split('').filter(function (x) {
-        return x > 0;
-      }).join(''));
+      var box = document.getElementById(e.target.id); // let currentHeight = Number(box.style.minHeight.split('').filter(x => x > 0).join(''))
+
+      box.style.backgroundColor = "#f7f7f7";
       card.style.display = "flex";
       e.target.appendChild(card);
       var task = this.tasks.filter(function (task) {
@@ -12000,6 +12017,8 @@ exports.default = _default;
     {
       attrs: { id: _vm.id },
       on: {
+        dragenter: _vm.dragEnter,
+        dragleave: _vm.dragExit,
         dragover: function($event) {
           $event.preventDefault()
         },
@@ -12797,7 +12816,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57687" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60566" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
