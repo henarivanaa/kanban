@@ -11966,7 +11966,9 @@ var _default = {
       }
     },
     dragExit: function dragExit(e) {
-      e.target.style.backgroundColor = "#f7f7f7";
+      if (e.target.id[e.target.id.length - 1] === "y") {
+        e.target.style.backgroundColor = "#f7f7f7";
+      }
     },
     drop: function drop(e) {
       var _this = this;
@@ -12816,7 +12818,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60566" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49650" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

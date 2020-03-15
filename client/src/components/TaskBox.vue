@@ -18,7 +18,9 @@ export default {
             }
         },
         dragExit(e) {
+            if (e.target.id[e.target.id.length-1] === "y") {
             e.target.style.backgroundColor = "#f7f7f7"
+            }
         },
         drop (e) {
             const card_id = e.dataTransfer.getData('card_id')
