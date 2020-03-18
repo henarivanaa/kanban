@@ -9,7 +9,7 @@
               </div>
 
               <div class="modal-body">
-                <form @submit.prevent="editTask">
+                <form @submit.prevent="editTask(task.id)">
                       <div class="form-group">
                           <input type="text" class="form-control" placeholder="Task name" v-model="task_title">
                       </div>
@@ -46,20 +46,20 @@ export default {
         }
     },
     methods: {
-        editTask () {
+        editTask (id) {
             let editedTask = {
                 "title": this.task_title,
                 "category": this.task.category,
                 "difficulty": this.task_difficulty
             }
-            axios.put(`${heroku}/tasks`, editedTask , {
+            axios.put(`${heroku}/tasks/${id}`, editedTask , {
                 headers: {
                     "access_token": localStorage.getItem("access_token")
                 }
             })
                 .then(() => {
                     this.$emit('close')
-                    this.$emit('edit', editedTask)
+                    this.$emit('edit', { edited: editedTask, id })
                 })
         }
     }

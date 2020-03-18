@@ -11754,7 +11754,7 @@ var _default = {
     };
   },
   methods: {
-    editTask: function editTask() {
+    editTask: function editTask(id) {
       var _this = this;
 
       var editedTask = {
@@ -11763,14 +11763,17 @@ var _default = {
         "difficulty": this.task_difficulty
       };
 
-      _axios.default.put("".concat(heroku, "/tasks"), editedTask, {
+      _axios.default.put("".concat(heroku, "/tasks/").concat(id), editedTask, {
         headers: {
           "access_token": localStorage.getItem("access_token")
         }
       }).then(function () {
         _this.$emit('close');
 
-        _this.$emit('edit', editedTask);
+        _this.$emit('edit', {
+          edited: editedTask,
+          id: id
+        });
       });
     }
   }
@@ -11803,7 +11806,7 @@ exports.default = _default;
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
-                    return _vm.editTask($event)
+                    return _vm.editTask(_vm.task.id)
                   }
                 }
               },
@@ -12348,7 +12351,7 @@ var _default = {
     },
     editTask: function editTask(data) {
       this.tasks = this.tasks.map(function (task) {
-        return task.id === data.id ? task = data : task;
+        return task.id === data.id ? task = data.edited : task;
       });
     }
   }
@@ -12818,7 +12821,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49650" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64254" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
